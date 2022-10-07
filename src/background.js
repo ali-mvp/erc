@@ -26,7 +26,7 @@ async function createWindow() {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
     },
   });
-  process.env.GH_TOKEN = "";
+  process.env.GH_TOKEN = "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";
   autoUpdater.autoDownload = false;
   autoUpdater.checkForUpdates();
   autoUpdater.logger = require("electron-log");
