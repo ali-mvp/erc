@@ -1,6 +1,6 @@
 {
   "name": "erc",
-  "version": "3.2.9",
+  "version": "4.0.1",
   "description": "erc auto update tester",
   "author": "ali-mvp",
   "private": true,
@@ -20,6 +20,7 @@
     "electron-log": "^4.4.8",
     "electron-updater": "^5.2.1",
     "socket.io": "^4.5.2",
+    "socket.io-client": "^4.5.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
