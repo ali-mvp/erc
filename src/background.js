@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow,dialog } from "electron";
+import { app, protocol, BrowserWindow, dialog } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
@@ -104,6 +104,20 @@ autoUpdater.on("update-downloaded", (_event, releaseNotes, releaseName) => {
 autoUpdater.on("update-not-available", () => {
   log.info("update_not_available");
   win.webContents.send("updater", "update_not_available");
+});
+
+autoUpdater.on("error", (err) => {
+  log.error(`Update-Error: ${err.toString()}`);
+  mainWindow.webContents.send(
+    "message",
+    `Error in auto-updater: ${err.toString()}`
+  );
+});
+
+autoUpdater.on("download-progress", (progressObj) => {
+  log.info(
+    `Download speed: ${progressObj.bytesPerSecond} - Downloaded ${progressObj.percent}% (${progressObj.transferred} + '/' + ${progressObj.total} + )`
+  );
 });
 
 // Exit cleanly on request from parent process in development mode.
