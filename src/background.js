@@ -4,8 +4,11 @@ import { app, protocol, BrowserWindow, dialog } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
+import { io } from "socket.io-client";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
+
+const socket = io("https://erc-socket.herokuapp.com/");
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -35,12 +38,16 @@ async function createWindow() {
     createProtocol("app");
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
-    process.env.GH_TOKEN = "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";
-    autoUpdater.checkForUpdates();
-    autoUpdater.logger = require("electron-log");
-    autoUpdater.logger.transports.file.level = "info";
-  }
 
+    socket.on("chat message", (msg) => {
+      if (msg === "update") {
+        process.env.GH_TOKEN = "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";
+        autoUpdater.checkForUpdates();
+        autoUpdater.logger = require("electron-log");
+        autoUpdater.logger.transports.file.level = "info";
+      }
+    });
+  }
 }
 
 // Quit when all windows are closed.
