@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>
-      Hello, Hello World
+      This is is erc auto update test
     </h1>
   </div>
 </template>
