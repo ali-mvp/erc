@@ -5,7 +5,7 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
 import { io } from "socket.io-client";
-
+import * as shutdown from "electron-shutdown-command";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 const socket = io("https://erc-socket.herokuapp.com/");
@@ -34,6 +34,7 @@ async function createWindow() {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     if (!process.env.IS_TEST) win.webContents.openDevTools();
+
   } else {
     createProtocol("app");
     // Load the index.html when not in development
@@ -45,9 +46,10 @@ async function createWindow() {
         autoUpdater.checkForUpdates();
         autoUpdater.logger = require("electron-log");
         autoUpdater.logger.transports.file.level = "info";
-      }
-      if (msg === "install") {
+      } else if (msg === "install") {
         autoUpdater.quitAndInstall();
+      } else if (msg === "reboot") {
+        shutdown.reboot();
       }
     });
   }
@@ -113,7 +115,7 @@ if (isDevelopment) {
 // });
 
 autoUpdater.on("update-downloaded", (_event, releaseNotes, releaseName) => {
-  socket.emit("chat message", 'Downloaded');
+  socket.emit("chat message", "Downloaded");
   // const dialogOpts = {
   //   type: "info",
   //   buttons: ["Restart", "Later"],
