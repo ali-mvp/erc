@@ -1,5 +1,9 @@
 <template>
-  <div class="home">Hello, How are you</div>
+  <div class="home">
+    <h1>
+      Hello, Hassan
+    </h1>
+  </div>
 </template>
 
 <script>
