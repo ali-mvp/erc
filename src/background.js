@@ -75,7 +75,7 @@ app.on("ready", async () => {
 
 const log = require("electron-log");
 
-autoUpdater.on("update-available", () => {
+autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
   log.info("update_available");
   const dialogOpts = {
     type: "info",
