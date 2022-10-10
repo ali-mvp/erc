@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>
-      Hello, Ali Hassan
+      Hello, Ali
     </h1>
   </div>
 </template>
