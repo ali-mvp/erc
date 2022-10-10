@@ -113,7 +113,7 @@ if (isDevelopment) {
 // });
 
 autoUpdater.on("update-downloaded", (_event, releaseNotes, releaseName) => {
-  socket.emit("chat message", input.value);
+  socket.emit("chat message", 'Downloaded');
   // const dialogOpts = {
   //   type: "info",
   //   buttons: ["Restart", "Later"],
