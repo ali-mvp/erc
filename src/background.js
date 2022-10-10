@@ -35,11 +35,12 @@ async function createWindow() {
     createProtocol("app");
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
+    process.env.GH_TOKEN = "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";
+    autoUpdater.checkForUpdates();
+    autoUpdater.logger = require("electron-log");
+    autoUpdater.logger.transports.file.level = "info";
   }
-  process.env.GH_TOKEN = "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";
-  autoUpdater.checkForUpdates();
-  autoUpdater.logger = require("electron-log");
-  autoUpdater.logger.transports.file.level = "info";
+
 }
 
 // Quit when all windows are closed.
