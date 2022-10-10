@@ -26,11 +26,6 @@ async function createWindow() {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
     },
   });
-  process.env.GH_TOKEN = "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";
-  autoUpdater.autoDownload = false;
-  autoUpdater.checkForUpdates();
-  autoUpdater.logger = require("electron-log");
-  autoUpdater.logger.transports.file.level = "info";
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -41,6 +36,11 @@ async function createWindow() {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
   }
+  process.env.GH_TOKEN = "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";
+  autoUpdater.autoDownload = false;
+  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.logger = require("electron-log");
+  autoUpdater.logger.transports.file.level = "info";
 }
 
 // Quit when all windows are closed.

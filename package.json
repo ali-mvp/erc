@@ -1,6 +1,6 @@
 {
   "name": "erc",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "erc auto update tester",
   "author": "ali-mvp",
   "private": true,
