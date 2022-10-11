@@ -1,4 +1,4 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
   pluginOptions: {
@@ -9,9 +9,17 @@ module.exports = defineConfig({
             provider: "github",
             owner: "ali-mvp",
             private: true,
-          }
-        ]
-      }
-    }
-  }
-})
+          },
+        ],
+        win: {
+          target: [
+            {
+              target: "nsis",
+              arch: ["ia32"], // windows 32
+            },
+          ],
+        },
+      },
+    },
+  },
+});
