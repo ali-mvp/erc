@@ -4,8 +4,3 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
-
-const name = ref("Ali Hassan");
-</script>
