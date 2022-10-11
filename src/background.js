@@ -4,11 +4,8 @@ import { app, protocol, BrowserWindow, dialog } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
-import { io } from "socket.io-client";
-import * as shutdown from "electron-shutdown-command";
-const isDevelopment = process.env.NODE_ENV !== "production";
 
-const socket = io("https://erc-socket.herokuapp.com/");
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -41,18 +38,10 @@ async function createWindow() {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
 
-    socket.on("chat message", (msg) => {
-      if (msg === "update") {
-        process.env.GH_TOKEN = "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";
-        autoUpdater.checkForUpdates();
-        autoUpdater.logger = require("electron-log");
-        autoUpdater.logger.transports.file.level = "info";
-      } else if (msg === "install") {
-        autoUpdater.quitAndInstall();
-      } else if (msg === "reboot") {
-        shutdown.reboot();
-      }
-    });
+    process.env.GH_TOKEN = "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";
+    autoUpdater.checkForUpdates();
+    autoUpdater.logger = require("electron-log");
+    autoUpdater.logger.transports.file.level = "info";
   }
 }
 
@@ -103,31 +92,30 @@ if (isDevelopment) {
   }
 }
 
-// autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
-//   log.info("update_available");
-//   const dialogOpts = {
-//     type: "info",
-//     buttons: ["Ok"],
-//     title: "Application Update",
-//     message: process.platform === "win32" ? releaseNotes : releaseName,
-//     detail: "A new version is being downloaded.",
-//   };
-//   dialog.showMessageBox(dialogOpts, (response) => {});
-// });
+autoUpdater.on("update-available", (_event, releaseNotes, releaseName) => {
+  log.info("update_available");
+  const dialogOpts = {
+    type: "info",
+    buttons: ["Ok"],
+    title: "Application Update",
+    message: process.platform === "win32" ? releaseNotes : releaseName,
+    detail: "A new version is being downloaded.",
+  };
+  dialog.showMessageBox(dialogOpts, (response) => {});
+});
 
 autoUpdater.on("update-downloaded", (_event, releaseNotes, releaseName) => {
-  socket.emit("chat message", "Downloaded");
-  // const dialogOpts = {
-  //   type: "info",
-  //   buttons: ["Restart", "Later"],
-  //   title: "Application Update",
-  //   message: process.platform === "win32" ? releaseNotes : releaseName,
-  //   detail:
-  //     "A new version has been downloaded. Restart the application to apply the updates.",
-  // };
-  // dialog.showMessageBox(dialogOpts).then((returnValue) => {
-  //   if (returnValue.response === 0) autoUpdater.quitAndInstall();
-  // });
+  const dialogOpts = {
+    type: "info",
+    buttons: ["Restart", "Later"],
+    title: "Application Update",
+    message: process.platform === "win32" ? releaseNotes : releaseName,
+    detail:
+      "A new version has been downloaded. Restart the application to apply the updates.",
+  };
+  dialog.showMessageBox(dialogOpts).then((returnValue) => {
+    if (returnValue.response === 0) autoUpdater.quitAndInstall();
+  });
 });
 
 autoUpdater.on("update-not-available", () => {
