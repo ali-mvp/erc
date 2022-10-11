@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>
-      This is is the latest version
+      This is test
     </h1>
   </div>
 </template>
