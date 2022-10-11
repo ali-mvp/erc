@@ -20,7 +20,7 @@ async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     show: false,
-    // frame: false,
+    frame: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
