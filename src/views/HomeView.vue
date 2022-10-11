@@ -7,5 +7,5 @@
 <script setup>
 import { ref } from "vue";
 
-const name = ref("Ali");
+const name = ref("Ali Hassan");
 </script>
