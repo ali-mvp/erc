@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow, dialog } from "electron";
+import { app, protocol, BrowserWindow, dialog, Notification } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
@@ -18,12 +18,10 @@ async function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     show: false,
-    frame: false,
+    // frame: false,
     webPreferences: {
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
+      nodeIntegration: false,
+      contextIsolation: true,
     },
   });
   win.maximize();
@@ -134,4 +132,7 @@ autoUpdater.on("download-progress", (progressObj) => {
     progressObj.total +
     ")";
   win.webContents.send("update-progress", log_message);
+  if (parseInt(progressObj.percent) % 10 == 0) {
+    new Notification({ title: "Progress", body: log_message }).show();
+  }
 });
