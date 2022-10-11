@@ -5,9 +5,7 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
 
-app.setLoginItemSettings({
-  openAtLogin: true    
-})
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
@@ -73,6 +71,9 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
+  app.setLoginItemSettings({
+    openAtLogin: true    
+  })
   createWindow();
 });
 
