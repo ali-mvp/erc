@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>This is {{ name }}</h1>
+    <h1>This is ALi Hassan</h1>
   </div>
 </template>
 
