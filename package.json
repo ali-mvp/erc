@@ -1,6 +1,6 @@
 {
   "name": "erc",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "erc auto update tester",
   "author": "ali-mvp",
   "private": true,
@@ -16,6 +16,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "auto-launch": "^5.0.5",
     "core-js": "^3.8.3",
     "electron-log": "^4.4.8",
     "electron-shutdown-command": "^2.0.1",

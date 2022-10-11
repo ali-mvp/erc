@@ -5,6 +5,21 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
 
+var AutoLaunch = require("auto-launch");
+var autoLauncher = new AutoLaunch({
+  name: "erc",
+});
+// Checking if autoLaunch is enabled, if not then enabling it.
+autoLauncher
+  .isEnabled()
+  .then(function (isEnabled) {
+    if (isEnabled) return;
+    autoLauncher.enable();
+  })
+  .catch(function (err) {
+    throw err;
+  });
+
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
