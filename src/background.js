@@ -5,7 +5,7 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
 
-
+const AutoLaunch = require("auto-launch");
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
@@ -70,10 +70,16 @@ app.on("ready", async () => {
     } catch (e) {
       console.error("Vue Devtools failed to install:", e.toString());
     }
+  } else {
+    let autoLaunch = new AutoLaunch({
+      name: "erc",
+      path: app.getPath("exe"),
+    });
+    autoLaunch.isEnabled().then((isEnabled) => {
+      if (!isEnabled) autoLaunch.enable();
+    });
   }
-  app.setLoginItemSettings({
-    openAtLogin: true    
-  })
+
   createWindow();
 });
 
