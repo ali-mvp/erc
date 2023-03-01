@@ -22,7 +22,7 @@
     "electron-shutdown-command": "^2.0.1",
     "electron-updater": "^5.2.1",
     "socket.io": "^4.5.2",
-    "socket.io-client": "^4.5.2",
+    "socket.io-client": "^4.6.1",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
